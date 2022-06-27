@@ -10,7 +10,7 @@ import {
 
 const Layout: React.FC<{
     pageTitle: string;
-    children: React.ReactElement
+    children: React.ReactElement | React.ReactElement[]
 }> = ({ pageTitle, children }) => {
     return (
         <div className={container}>
