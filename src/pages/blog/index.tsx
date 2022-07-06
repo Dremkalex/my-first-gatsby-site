@@ -3,17 +3,23 @@ import { Link, graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import Layout from '../../components/layout'
 import {IAllMdx, IData, INodes} from "../../types/data";
+import {FileNode} from "gatsby-plugin-image/dist/src/components/hooks";
 
 export interface IBlogFrontmatter {
     title: string;
     name: string;
     author: string;
     date: string;
+    hero_image_alt: string;
+    hero_image_credit_link: string;
+    hero_image_credit_text: string;
+    hero_image: FileNode
 }
 
 export interface IBlog {
     id: string;
     slug: string;
+    body: string;
     frontmatter: IBlogFrontmatter;
 }
 

@@ -11,7 +11,7 @@ import {
 
 const Layout: React.FC<{
     pageTitle: string;
-    children: React.ReactElement | React.ReactElement[]
+    children: React.ReactNode | React.ReactNode[]
 }> = ({ pageTitle, children }) => {
     const data = useStaticQuery(graphql`
     query {
