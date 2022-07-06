@@ -1,21 +1,23 @@
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import Layout from '../components/layout'
-import {IData, IMdx, INodes} from "../types/data";
+import Layout from '../../components/layout'
+import {IAllMdx, IData, INodes} from "../../types/data";
 
-interface IBlog {
-    id: string;
-    body: string;
-    frontmatter: {
-        title: string;
-        name: string;
-        author: string;
-        date: string;
-    };
+export interface IBlogFrontmatter {
+    title: string;
+    name: string;
+    author: string;
+    date: string;
 }
 
-interface IBlogPageProps extends IData<IMdx<INodes<IBlog>>>{}
+export interface IBlog {
+    id: string;
+    slug: string;
+    frontmatter: IBlogFrontmatter;
+}
+
+interface IBlogPageProps extends IData<IAllMdx<INodes<IBlog>>>{}
 
 const BlogPage: React.FC<IBlogPageProps> = ({data}) => {
     return (
@@ -24,11 +26,12 @@ const BlogPage: React.FC<IBlogPageProps> = ({data}) => {
                 {
                     data.allMdx.nodes.map((node) => (
                         <article key={node.id}>
-                            <h2>{node.frontmatter.title}</h2>
+                            <h2>
+                                <Link to={`/blog/${node.slug}`}>
+                                    {node.frontmatter.title}
+                                </Link>
+                            </h2>
                             <p>Posted: {node.frontmatter.date}</p>
-                            <MDXRenderer>
-                                {node.body}
-                            </MDXRenderer>
                         </article>
                     ))
                 }
@@ -48,7 +51,7 @@ export const query = graphql`
         date(formatString: "MMMM D, YYYY")
       }
       id
-      body
+      slug
     }
   }
   }
